@@ -9,7 +9,6 @@ namespace LAB_2a.controller
     {
         static bool isLogin = false;
         static string? input;
-        public static BankAccount? account;
         public static void Control()
         {
             if (isLogin == false)
@@ -18,13 +17,7 @@ namespace LAB_2a.controller
             }
             else
             {
-                Menu.ServiceMenu();
-
-                Console.WriteLine("Enter your choice :");
-
-                input = Console.ReadLine();
-
-                SubController.ServiceController(input);
+                SubController.ServiceController();
             }
         }
     }

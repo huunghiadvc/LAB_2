@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Lab_2.model;
 using Lab_2.service;
 using LAB_2a.view;
@@ -51,8 +47,14 @@ namespace LAB_2a.controller
             return false;
         }
 
-        public static void ServiceController(string? input)
+        public static void ServiceController()
         {
+
+            Menu.ServiceMenu();
+
+            Console.WriteLine("Enter your choice :");
+
+            input = Console.ReadLine();
 
             switch (input)
             {
@@ -69,32 +71,10 @@ namespace LAB_2a.controller
                         {
                             Console.WriteLine("Enter your choice :");
                             input = Console.ReadLine();
-                            switch (input)
+                            amount = GetAmount(input);
+                            if (amount < 1)
                             {
-                                case "1":
-                                    amount = 50000;
-                                    break;
-                                case "2":
-                                    amount = 500000;
-                                    break;
-                                case "3":
-                                    amount = 1500000;
-                                    break;
-                                case "4":
-                                    Console.WriteLine("Enter amount :");
-                                    input = Console.ReadLine();
-                                    amount = long.Parse(input);
-                                    if (amount % 50000 != 0)
-                                    {
-                                        Console.WriteLine("The amount needs to be a multiple of 50000!");
-                                        continue;
-                                    }
-                                    break;
-                                case "5":
-                                    return;
-                                default:
-                                    Console.WriteLine("Please select 1-5");
-                                    continue;
+                                continue;
                             }
                             if (account.Withdraw(amount))
                             {
@@ -137,6 +117,35 @@ namespace LAB_2a.controller
                     Environment.Exit(0);
                     break;
             }
+        }
+
+        public static long GetAmount(string input)
+        {
+            switch (input)
+            {
+                case "1":
+                    return 50000;
+                case "2":
+                    return 500000;
+                case "3":
+                    return 1500000;
+                case "4":
+                    Console.WriteLine("Enter amount :");
+                    input = Console.ReadLine();
+                    long result = long.Parse(input);
+                    if (result % 50000 != 0)
+                    {
+                        Console.WriteLine("The amount needs to be a multiple of 50000!");
+                        return -1;
+                    }
+                    break;
+                case "5":
+                    return -1;
+                default:
+                    Console.WriteLine("Please select 1-5");
+                    return -1;
+            }
+            return -1;
         }
     }
 }
